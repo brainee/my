@@ -1,1 +1,0 @@
-define(["commonlist","MyCtripModel"],function(e){return e.getInstance({pageid:"",hpageid:"",isAggregated:!0,bizType:["DIY","Cruise","Vacation"],viewType:"vacationunionorderlist",title:"旅游度假订单"})});

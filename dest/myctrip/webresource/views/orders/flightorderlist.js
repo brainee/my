@@ -1,1 +1,0 @@
-define(["commonlist"],function(e){return e.getInstance({pageid:"231044",hpageid:"231044",bizType:"Flight",viewType:"flightorderlist",title:"机票订单",onShow:function(e){var r=Lizard.P("flag");return"orders/search"==e.referrer&&"nocache"==r?!0:void 0}})});

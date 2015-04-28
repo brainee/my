@@ -1,1 +1,0 @@
-define(function(){return"﻿<script type=\"text/lizard-config\">{url_schema:\"orders/search\",model:{apis:[]},view:{viewport:\"\"},controller:\"webresource/views/orders/search.js\"}</script>"});

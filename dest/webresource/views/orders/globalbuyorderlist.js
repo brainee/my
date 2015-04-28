@@ -1,1 +1,0 @@
-define(["commonlist"],function(e){return e.getInstance({pageid:"",hpageid:"",bizType:"GlobalBuy",viewType:"globalbuyorderlist",title:"全球购订单"})});
