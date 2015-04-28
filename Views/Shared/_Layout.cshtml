@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+@using System.Configuration
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>携程旅行-我的携程-m.ctrip.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" />
+    <link rel="Stylesheet" type="text/css" href="http://webresource.c-ctrip.com/styles/h5/common/main.css" />
+
+    <link rel="apple-touch-startup-image" sizes="320x460" href="http://pic.c-ctrip.com/h5/common/640.png?v=1.0">
+    <link rel="apple-touch-startup-image" sizes="640x920" href="http://pic.c-ctrip.com/h5/common/940.png?v=1.0">
+    <link rel="apple-touch-startup-image" sizes="768x1004" href="http://pic.c-ctrip.com/h5/common/1004.png?v=1.0">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="http://pic.c-ctrip.com/h5/common/57.png?v=1.0">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://pic.c-ctrip.com/h5/common/72.png?v=1.0">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://pic.c-ctrip.com/h5/common/114.png?v=1.0">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://pic.c-ctrip.com/h5/common/144.png?v=1.0">
+    <link rel="stylesheet" class="mediaquery" data-media="0" data-href="/webapp/myctrip/webresource/res/style/myctrip-pc-cui.css">
+    <!--[if IE]><link rel="stylesheet" href="http://webresource.c-ctrip.com/style/h5/common/ie_hack.css" /><![endif]-->
+    <link rel="stylesheet" class="mediaquery" data-media="20,21" data-href="/webapp/myctrip/webresource/res/style/myctrip-mobile.css">
+    <link rel="stylesheet" class="mediaquery" data-media="10,11" data-href="/webapp/myctrip/webresource/res/style/myctrip-pad.css">
+    <link rel="stylesheet" class="mediaquery" data-media="0" data-href="/webapp/myctrip/webresource/res/style/myctrip-pc.css">
+    <script type="text/javascript" class="mediaquery" data-media="0" data-src="http://webresource.c-ctrip.com/ResCRMOnline/R1/pageheader/js/IntegratedJS.js"></script>
+
+    <meta name="appBaseUrl" content="@Url.Content("~/")" />
+    <meta name="restfullApiHttps" content="@ConfigurationManager.AppSettings["restfullApiHttps"]" />
+    <meta name="webresourceBaseUrl" content="@ConfigurationManager.AppSettings["WebresourceBaseUrl"]" />
+    <meta name="restfullApi" content="@ConfigurationManager.AppSettings["restfullApi"]" />
+    <meta name="WebresourcePDBaseUrl" content="@ConfigurationManager.AppSettings["WebresourcePDBaseUrl"]" />
+</head>
+<body onselectstart="return false" class="page-myctrip-order">
+    <!--默认头部配置-->
+    <script type="text/javascript">
+        var globalConfig = {
+            //bt类型，默认为default,没有一二级频道选中，若需选中一二频道请联系（R&D 基础业务 用户中心-用户组成员）
+            BusinessType: 'default',
+            //环境选'other'即可
+            Environment: 'other',
+            //判断是否需要登录，如果LoginType = ‘notload’则表示无需登录态；其他的情况，则是登录态（默认default，需要登录）
+            LoginType: 'default',
+            //3.0对应响应式版本
+            Version: '3.0'
+        };
+
+        //判断当前环境
+        //        hybrid    h5
+        //online   /         0
+        //pad      10       11
+        //mobile   20       21
+
+        var deviceEnv = deviceEnv();
+        deviceEnv = (deviceEnv === 0 || deviceEnv === 11) ? (location.search.indexOf('for=test') != -1 ? 0 : 11) : deviceEnv;
+        if (typeof deviceEnv != 'undefined') {
+            window.deviceEnv = deviceEnv;
+            fnMediaQuery();
+        }
+        window.isShowSlideMenu = deviceEnv === 0 || deviceEnv === 10||deviceEnv === 11;
+
+        function fnMediaQuery() {
+            var queries = document.querySelectorAll('.mediaquery'), all = queries.length, cur = null, attr = null, media = '';
+            while (all--) {
+                cur = queries[all];
+                media = typeof cur.dataset === 'undefined' ? cur.getAttribute("data-media") : cur.dataset.media;
+                media = media ? media.split(',') : [];
+                if (media.indexOf('' + deviceEnv) > -1) {
+                    for (attr in cur.dataset) {
+                        if (attr !== 'media') {
+                            cur.setAttribute(attr, cur.dataset[attr]);
+                        }
+                    }
+                }
+            }
+        };
+
+        function deviceEnv() {
+            var ua = navigator.userAgent;
+            var padRegex = /ipad|android/i;
+            var bInApp = false;
+            var data = window.localStorage.getItem('isInApp') || window.localStorage.getItem('ISINAPP');
+            var isPadApp = ua.match(/Ctrip_Pad_App/i);
+            var _width = document.body.clientWidth;
+            var isOnline, rv;
+
+            if (ua.indexOf('CtripWireless') > -1) {
+                bInApp = true;
+            }
+            if (data) {
+                bInApp = data == '1';
+            }
+
+            isOnline = !bInApp && !padRegex.test(ua) && _width > 767;
+
+            if (isOnline) {
+                rv = 0;
+            }
+            else if (isPadApp) {
+                rv = 10;
+            }
+            else if (padRegex.test(ua) && _width > 767) {
+                rv = 11;
+            }
+            else if (bInApp && _width < 768) {
+                rv = 20;
+            }
+            else{
+                rv = 21;
+            }
+            return rv;
+        }
+
+    </script>
+    <div id="header"></div>
+    <div id="headerview"></div>
+    <div id="main" class="h100">
+        <div class="main-frame myctrip_wrap">
+            <div class="main-viewport main"></div>
+            <div class="main-state"></div>
+        </div>
+    </div>
+    <div id="myjs"></div>
+    <div id="footer"></div>
+    @RenderBody()
+    <input type="hidden" id="page_id" value="wait" />
+    <input type='hidden' id="bf_ubt_orderid" value="" />
+    <script type="text/javascript" src="http://webresource.c-ctrip.com/code/lizard/2.1/web/lizard.seed.js" pdConfig="/webapp/myctrip/webresource/config.js" lizardConfig="lizardCatch:'off'"></script>
+    <script>
+        if (navigator.userAgent.match(/CtripLite/i)) { $("#footer").hide(); }
+
+        //H5中，特殊分辨率的pad，切换横竖屏时reload页面（只有当长宽中的某一个小于768时，横竖屏切换时才需要刷新。因为此时切换前后一个是H5界面，一个是Pad界面）
+        if (!Lizard.isHybrid) {
+            if (document.body.clientWidth < 768 && document.body.clientHeight > 767 || document.body.clientWidth > 767 && document.body.clientHeight < 768) {
+                window.addEventListener('orientationchange', function (e) {
+                    window.location.reload();
+                });
+            }
+        }
+
+        // 在pc上拖动浏览器窗口可以自动刷新页面，使用相应分辨率下的样式
+        var callback= function() {
+            window.location.reload();
+        };
+        var widthMatchMax768 = window.matchMedia("(max-width: 768px)");
+        var widthMatchMin768 = window.matchMedia("(min-width: 768px)");
+        if (widthMatchMax768.matches) {
+            widthMatchMax768.addListener(callback);
+        } else if (widthMatchMin768.matches) {
+            widthMatchMin768.addListener(callback);
+        }
+
+        //Hybrid和H5中左侧菜单栏的高度不同，Hybrid中为0，H5中为44（header的高度）。我携首页由于没有header，所以都为0
+        if (!Lizard.isHybrid&&$(window).width() > 767 && !document.getElementById('pad_index')) {
+            var head = document.getElementsByTagName('head')[0];
+            var temp = document.createElement('style');
+            temp.rel = 'stylesheet';
+            temp.type = 'text/css';
+            temp.textContent = '#ctripmenu-wrap{top:44px;}';
+            head.appendChild(temp);
+        }
+        //更多页面兼容
+        if (window.LizardLocalroute) {
+            window.LizardLocalroute["more"] = "views/more/index";
+            window.LizardLocalroute["more/index"] = "views/more/index";
+        }
+    </script>
+</body>
+</html>

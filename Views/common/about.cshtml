@@ -1,0 +1,51 @@
+﻿<script type="text/lizard-config">
+    {
+        "url_schema": "common/about",
+        "model":{
+            "apis": []
+        },
+        "view":{
+            "viewport": require('cUtilCommon').isInApp ? Lizard.T('apptpl') : Lizard.T('h5tpl')
+        },
+        "controller": "/webapp/myctrip/webresource/views/common/about.js"
+    }
+</script>
+<!-- APP -->
+<script type="text/lizard-template" id="apptpl">
+    <h1 class="myctrip-tit"><i class="myctrip-v" style="display:none"></i></h1>
+    <section>
+        <ul class="about-list">
+            <li>
+                <div data-href="new" class="about-item ico-fn">新功能介绍<i class="arrow-r"></i></div>
+                <div data-href="upgrade" class="about-item ico-upgrade upgrade" style="display:none;">升级新版本<span class="tag-new" style="display:none">new</span><span class="current-v"></span><i class="arrow-r"></i></div>
+                <div data-href="question" class="about-item ico-question">常见问题<i class="arrow-r"></i></div>
+                <div data-href="feedback" class="about-item ico-opinion">意见反馈<i class="arrow-r"></i></div>
+                <div data-href="grade" class="about-item ico-grade grade" style="display:none;">为携程旅行评分<i class="arrow-r"></i></div>
+                <div data-href="survey" class="about-item ico-plan">参与用户体验改善计划<i class="arrow-r"></i></div>
+                <div data-href="recommend" class="about-item ico-recommand recommand">推荐携程旅行给好友<i class="arrow-r"></i></div>
+            </li>
+        </ul>
+    </section>
+    <footer>
+        <h2 class="follow-us"><span>关注我们</span></h2>
+        <div class="follow-us-box">
+            <div class="follow-us-inbox">
+                <div data-href="weibo" class="ico-sina">携程旅行</div>
+                <div data-href="weixin" class="ico-wechat">ictrip</div>
+            </div>
+        </div>
+        <p data-href="agreement" class="agreement">软件许可及服务协议</p>
+        <p class="copyright">Copyright&copy; 1999-2015, ctrip.com. All rights reserved.</p>
+    </footer>
+</script>
+<!-- H5 -->
+<script type="text/lizard-template" id="h5tpl">
+    <h1 class="myctrip-tit"></h1>
+    <section class="p10 jsmenu">
+        <ul class="list_st_border mb10">
+            <li data-href="noticelist"><i class="icon_notice myicon"></i>携程公告<i class="newarr_r"></i></li>
+            <li data-href="question"><i class="icon_question myicon"></i>常见问题<i class="newarr_r"></i></li>
+            <li data-href="feedback"><i class="icon_feedback myicon"></i>意见反馈<i class="newarr_r"></i></li>
+        </ul>
+    </section>
+</script>

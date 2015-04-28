@@ -1,0 +1,1 @@
+define(function(){return"﻿<script type=\"text/lizard-config\">{url_schema:\"orders/taxiorderlist\",model:{apis:[]},view:{viewport:\"\"},controller:\"webresource/views/orders/taxiorderlist.js\"}</script>"});

@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <script type="text/javascript">
+    (function(url) {
+        var val;
+        var reg = /(\/webapp\/myctrip\/)(#|index.html#|index.html)(.+)/;
+        var matchs = url.match(reg);
+        if (matchs) {
+            var matchs3=matchs[3];
+            if(matchs3){
+                if (matchs3.indexOf('account/weixin') === 0 || matchs3.indexOf('account/xiaomi') === 0) {
+                    val = matchs[1] + '#' + matchs3;
+                } else if (matchs3.indexOf('orders/attr-hotelorderlist') === 0) {
+                    val = matchs[1] + 'orders/sceneryhotelorderlist';
+                }else if(matchs3.indexOf('myinfo/messagecenter') === 0){
+                    var prm=matchs3.substr(matchs3.indexOf('messagecenter')+13)||'';
+                    val = '/webapp/message/messagecenter'+prm;
+                }else if(matchs3.indexOf('myinfo/mailsubscribe')=== 0){
+                    val = '/webapp/EDMMailsubscribe';
+                } else {
+                    val = matchs[1] + matchs3;
+                }
+            }else{
+                val = '/webapp/myctrip/index';
+            }            
+        } else {
+            val = '/webapp/myctrip/index';
+        }
+        location.href = val;
+    })(location.href);
+    </script>
+</body>
+</html>

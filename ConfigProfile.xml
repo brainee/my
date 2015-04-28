@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<profile>
+  <environments>
+    <add name="dev" dataCenter="sh" target="dev" iis="IIS6, IIS7" net="Net2,Net4" />
+    <add name="fws" dataCenter="sh,nt" target="fws" iis="IIS6, IIS7" net="Net2,Net4" />
+    <add name="fat" dataCenter="sh,nt" target="fat" iis="IIS6, IIS7" net="Net2,Net4" />
+    <add name="uat" dataCenter="sh,nt" target="uat" iis="IIS6, IIS7" net="Net2,Net4" />
+    <add name="uat_nt" dataCenter="nt" target="uat_nt" iis="IIS7" net="Net4" />
+    <add name="lpt" dataCenter="sh,nt" target="lpt" iis="IIS6, IIS7" net="Net2,Net4" />
+    <add name="prd" dataCenter="all" target="prd" iis="all" net="all" />
+  </environments>
+  <dev> 
+    <Debug>false</Debug>
+    <CustomErrorsMode>Off</CustomErrorsMode>
+    <restfullApiHttps>https://restful.m.uat.qa.nt.ctripcorp.com</restfullApiHttps>
+    <restfullApi>http://gateway.m.uat.qa.nt.ctripcorp.com</restfullApi>
+    <WebresourceBaseUrl>http://webresource.fws.qa.nt.ctripcorp.com/</WebresourceBaseUrl>
+    <WebresourcePDBaseUrl>/webapp/myctrip/webresource/</WebresourcePDBaseUrl>
+    <AppID>100000442</AppID>
+    <LoggingServer.V2.IP>collector.logging.sh.ctriptravel.com</LoggingServer.V2.IP>
+    <LoggingServer.V2.Port>63100</LoggingServer.V2.Port>
+    <FxConfigServiceUrl>http://ws.config.framework.fws.qa.nt.ctripcorp.com/configws</FxConfigServiceUrl>
+  </dev>
+
+  <fws>  
+    <Debug>false</Debug>
+    <CustomErrorsMode>Off</CustomErrorsMode>
+    <restfullApiHttps>https://secure.fat19.qa.nt.ctripcorp.com</restfullApiHttps>
+    <restfullApi>http://gateway.m.fws.qa.nt.ctripcorp.com</restfullApi>
+    <WebresourceBaseUrl>http://webresource.fws.qa.nt.ctripcorp.com/</WebresourceBaseUrl>
+    <WebresourcePDBaseUrl>/webapp/myctrip/webresource/</WebresourcePDBaseUrl>
+
+    <AppID>100000442</AppID>
+    <LoggingServer.V2.IP>collector.logging.sh.ctriptravel.com</LoggingServer.V2.IP>
+    <LoggingServer.V2.Port>63100</LoggingServer.V2.Port>
+    <FxConfigServiceUrl>http://ws.config.framework.fws.qa.nt.ctripcorp.com/configws</FxConfigServiceUrl>
+  </fws>
+
+  <fat>  
+    <Debug>false</Debug>
+    <CustomErrorsMode>Off</CustomErrorsMode>
+    <restfullApiHttps>https://secure.fat19.qa.nt.ctripcorp.com</restfullApiHttps>
+    <restfullApi>http://gateway.m.fws.qa.nt.ctripcorp.com</restfullApi>
+    <WebresourceBaseUrl>http://webresource.fws.qa.nt.ctripcorp.com/</WebresourceBaseUrl>
+    <WebresourcePDBaseUrl>/webapp/myctrip/webresource/</WebresourcePDBaseUrl>
+
+    <AppID>100000442</AppID>
+    <LoggingServer.V2.IP>collector.logging.sh.ctriptravel.com</LoggingServer.V2.IP>
+    <LoggingServer.V2.Port>63100</LoggingServer.V2.Port>
+    <FxConfigServiceUrl>http://ws.config.framework.fws.qa.nt.ctripcorp.com/configws</FxConfigServiceUrl>
+  </fat>
+
+  <uat>
+    <Debug>false</Debug>
+    <CustomErrorsMode>Off</CustomErrorsMode>
+    <restfullApiHttps>https://restful.m.uat.qa.nt.ctripcorp.com</restfullApiHttps>
+    <restfullApi>http://gateway.m.uat.qa.nt.ctripcorp.com</restfullApi>
+    <WebresourceBaseUrl>http://webresource.fws.qa.nt.ctripcorp.com/</WebresourceBaseUrl>
+    <WebresourcePDBaseUrl>/webapp/myctrip/webresource/</WebresourcePDBaseUrl>
+
+    <AppID>100000442</AppID>
+    <LoggingServer.V2.IP>collector.logging.sh.ctriptravel.com</LoggingServer.V2.IP>
+    <LoggingServer.V2.Port>63100</LoggingServer.V2.Port>
+    <FxConfigServiceUrl>http://ws.config.framework.uat.qa.ctripcorp.com/configws</FxConfigServiceUrl>
+  </uat>
+
+  <uat_nt>
+    <Debug>false</Debug>
+    <CustomErrorsMode>Off</CustomErrorsMode>
+    <restfullApiHttps>https://restful.m.uat.qa.nt.ctripcorp.com</restfullApiHttps>
+    <restfullApi>http://gateway.m.uat.qa.nt.ctripcorp.com</restfullApi>
+    <WebresourceBaseUrl>http://webresource.fws.qa.nt.ctripcorp.com/</WebresourceBaseUrl>
+    <WebresourcePDBaseUrl>/webapp/myctrip/webresource/</WebresourcePDBaseUrl>
+
+    <AppID>100000442</AppID>
+    <LoggingServer.V2.IP>collector.logging.sh.ctriptravel.com</LoggingServer.V2.IP>
+    <LoggingServer.V2.Port>63100</LoggingServer.V2.Port>
+    <FxConfigServiceUrl>http://ws.config.framework.uat.qa.nt.ctripcorp.com/configws</FxConfigServiceUrl>
+  </uat_nt>
+
+  <lpt>
+    <Debug>false</Debug>
+    <CustomErrorsMode>Off</CustomErrorsMode>
+    <restfullApiHttps>http://gateway.m.lpt.qa.nt.ctripcorp.com/restapi/soa2/10098/</restfullApiHttps>
+    <restfullApi>http://gateway.m.lpt.qa.nt.ctripcorp.com/</restfullApi>
+    <WebresourceBaseUrl>http://webresource.ctrip.com/</WebresourceBaseUrl>
+    <WebresourcePDBaseUrl>/webapp/myctrip/webresource/</WebresourcePDBaseUrl>
+
+    <AppID>100000442</AppID>
+    <LoggingServer.V2.IP>collector.logging.sh.ctriptravel.com</LoggingServer.V2.IP>
+    <LoggingServer.V2.Port>63100</LoggingServer.V2.Port>
+    <FxConfigServiceUrl>http://ws.config.framework.lpt.qa.nt.ctripcorp.com/configws</FxConfigServiceUrl>
+  </lpt>
+
+  <prd>
+    <Debug>false</Debug>
+    <CustomErrorsMode>Off</CustomErrorsMode>
+    <restfullApiHttps>https://wpg.ctrip.com</restfullApiHttps>
+    <restfullApi>http://m.ctrip.com</restfullApi>
+    <WebresourceBaseUrl>http://webresource.ctrip.com/</WebresourceBaseUrl>
+    <WebresourcePDBaseUrl>/webapp/myctrip/webresource/</WebresourcePDBaseUrl>
+
+    <AppID>100000442</AppID>
+    <LoggingServer.V2.IP>collector.logging.sh.ctriptravel.com</LoggingServer.V2.IP>
+    <LoggingServer.V2.Port>63100</LoggingServer.V2.Port>
+    <FxConfigServiceUrl>http://ws.config.framework.ctripcorp.com/configws</FxConfigServiceUrl>
+  </prd>
+</profile>

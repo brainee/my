@@ -1,0 +1,1 @@
+define(["commonlist"],function(e){return e.getInstance({pageid:"",hpageid:"",bizType:"Dnr",viewType:"dnrorderlist",title:"美食订餐订单"})});

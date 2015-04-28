@@ -1,0 +1,654 @@
+<!--当地玩乐模板-->
+<script type="text/template" id="Activity">
+    <%
+    var timeContent = isWifi? UsageDate[0] + '&nbsp;至&nbsp;' + ExpiredDate[0] : UsageDate[0] + '出发';
+    %>
+    <li data-oid="<%=OrderID %>"
+        data-actions="<%=actions %>" <%if(typeof ContactMobile != 'undefined'){%>data-mobile="<%=ContactMobile%>"<%}%> class="order-list-item activity <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>">
+    <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+        <%if(isAggregated){%>
+        <span class="order-type type-event">当地玩乐</span>
+        <%}%>
+        <span class="order-status<%= OrderStatusName.indexOf('成交') > -1 ? ' order-status-succes' : '' %>"><%= OrderStatusName %></span>
+        <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice %></span>
+    </div>
+    <div class="order-cont" data-url="<%=detail %>">
+        <h2 class="ellips_line2"><%= ActivityOrderItems[0].ProductName %></h2>
+
+        <p class="order-info"><%=timeContent %></p>
+    </div>
+    <%=btnhtml %>
+    </li>
+</script>
+
+
+<!--用车模板-->
+<script type="text/template" id="Car">
+    <li class="order-list-item car <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>" data-oid="<%=OrderID %>"
+        data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(isAggregated){%>
+            <span class="order-type type-car">用车</span>
+            <%}%>
+            <span class="order-status<%=OrderStatusName=='已成交'?' order-status-succes':'' %>"><%=OrderStatusName %></span>
+            <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice %></span>
+        </div>
+        <div class="order-cont" data-url="<%=detail %>">
+            <h2 class="ellips_line2"><%=CarOrderItems[0]["UsageCity"] %>/<%=CarOrderItems[0]["ProductName"] %></h2>
+
+            <p class="order-info"><%=UsageDate[0] %>使用</p>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+
+<!--邮轮模板-->
+<script type="text/template" id="Cruise">
+    <li class="order-list-item cruise <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>"
+        data-oid="<%=OrderID %>" data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(isAggregated){%>
+            <span class="order-type type-cruise">邮轮</span>
+            <%}%>
+            <span class="order-status <%=OrderStatusName === '已成交' ? 'order-status-succes' : '' %>"><%=OrderStatusName %></span>
+            <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice %></span>
+        </div>
+        <div class="order-cont" data-url="<%=detail %>">
+            <h2 class="ellips_line2"><%=CruiseOrderItems[0].ProductName %></h2>
+
+            <p class="order-info"><%=UsageDate[0] %>出发</p>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+
+<!--自由行模板-->
+<script type="text/template" id="DIY">
+    <li class="order-list-item diy <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>" data-oid="<%=OrderID %>"
+        data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(isAggregated){%>
+            <span class="order-type type-visit">自由行</span>
+            <%}%>
+            <span class="order-status <%=OrderStatusName === '已成交' ? 'order-status-succes' : '' %>"><%=OrderStatusName %></span>
+            <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice %></span>
+        </div>
+        <div class="order-cont" data-url="<%=detail %>">
+            <%if(DIYOrderItems&&DIYOrderItems[0]){%>
+            <h2 class="ellips_line2"><%= DIYOrderItems[0].ProductName.split("|")[0] %></h2>
+            <%}%>
+            <p class="order-info"><%=BeginUsageDate[0]%>&nbsp;至&nbsp;<%=EndUsageDate[0]%></p>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+
+<!--机票模板-->
+<script type="text/template" id="Flight">
+    <li class="order-list-item flight <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>"
+        data-oid="<%=OrderID%>" data-type="<%=BizType%>" data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(viewType == "flightorderlist" || (viewType == "searchresult" && !bAllSearch)){%>
+            <span class="order-type single-order-type"><%=orderType %></span>
+            <%} else{%>
+            <span class="order-type type-flight">机票</span>
+            <%} %>
+            <span class="order-status <%=OrderStatusName === '已成交' ? 'order-status-succes' : '' %>"><%=OrderStatusName %></span>
+            <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice %></span>
+        </div>
+        <div class="order-cont" data-url="<%=detail %>">
+            <div class="travel-wrap flight-wrap <%=isSingleTrip ? 'flight-single' : (isTypeReturn ? 'flight-return' : 'flight-transit')%>">
+                <h2 class="ellips_line2"><%= depFlightInfo.DepartureDisplayName %>&nbsp;-&nbsp;<%= isTypeReturn &&
+                    isUnAbandon ? arrFlightInfo.DepartureDisplayName : arrFlightInfo.ArrivalDisplayName
+                    %><%if(isFlightAndTrain){%>（空铁组合）<%}%><%if(isConnecting){%>（联程）<%}%><%if(isTypeReturn){%>（往返）<%}%></h2>
+                <%if(isFlightAndTrain){%>
+                <%=flightAndTrainHtml%>
+                <%}else{%>
+                <p class="order-info">
+                    <%if(isTypeReturn){%><span class="start">去</span><%}%>
+                    <span class="date"><%=DepartureDate[0]%></span><span class="hour"><%=DepartureDate[1]%>&nbsp;至&nbsp;<%=DepartureDate[0]==ArrivalDate[0]?'':ArrivalDate[0]+' '%><%=ArrivalDate[1]%></span>
+                    <span class="item"><%=depFlightInfo.FlightNo + (isTypeReturn ? (timeIndexes[1] > 0 ? '等' : '') : (FlightOrderItems.length > 1 ? '等' : ''))%></span>
+                </p>
+                <%if (isTypeReturn && isUnAbandon) {%>
+                <p class="order-info">
+                    <%if(isTypeReturn){%><span class="end">返</span><%}%>
+                    <span class="date"><%=BackDepartureDate[0]%></span><span class="hour"><%=BackDepartureDate[1]%>&nbsp;至&nbsp;<%=BackDepartureDate[0]==BackArrivalDate[0]?'':BackArrivalDate[0]+' '%><%=BackArrivalDate[1]%></span>
+                    <span class="item"><%=arrFlightInfo.FlightNo + (timeIndexes[3] > timeIndexes[2] ? '等' : '')%></span>
+                </p>
+                <%}%>
+                <%}%>
+            </div>
+        </div>
+        <% var orderActions = (OrderActions instanceof Array) ? OrderActions : [];
+        if(orderActions.length > 0) {
+        %>
+        <%=btnhtml %>
+        <%} %>
+    </li>
+</script>
+
+
+<!--高尔夫模板-->
+<script type="text/template" id="Golf">
+    <li class="order-list-item golf <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>"
+        data-oid="<%= OrderID %>" data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(isAggregated){%>
+            <span class="order-type type-golf">高尔夫</span>
+            <%}%>
+            <span class="order-status <%= OrderStatusName == '支付成功' ? ' order-status-succes' : '' %>"><%= OrderStatusName %></span>
+            <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice %></span>
+        </div>
+        <div class="order-cont" data-url="<%=detail %>">
+            <h2 class="ellips_line2"><%= OrderName%></h2>
+
+            <p class="order-info"><%=UsageDate[0]%>&nbsp;&nbsp;使用</p>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+
+<!--酒店模板-->
+<script type="text/template" id="Hotel">
+    <li class="order-list-item hotel <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>"
+        data-share="<%=shareItem %>" data-hotelid='<%=HotelOrderItems[0].HotelID %>' data-oid='<%=OrderID %>'
+        data-name='<%=HotelOrderItems[0].ProductName %>' data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(viewType == "hotelorderlist" || (viewType == "searchresult" && !bAllSearch)){%>
+            <span class="order-type single-order-type"><%=orderType %></span>
+            <%} else{%>
+            <span class="order-type type-hotel">酒店</span>
+            <%} %>
+            <span class="order-status <%=OrderStatusName == '已成交' ? " order-status-succes":"" %>"><%=OrderStatusName
+            %></span>
+            <%if(Currency=="CNY"||Currency=="RMB"){ %>
+            <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice%></span>
+            <%}else{%>
+            <span class="order-price"><dfn><%=Currency %></dfn><%=OrderTotalPrice%></span>
+            <%}%>
+        </div>
+        <div class="order-cont" data-url="<%=detail %>">
+            <h2 class="ellips_line2"><%=HotelOrderItems[0].ProductName%></h2>
+
+            <p class="order-info"><%=HotelOrderItems[0]['HotelAddress']?HotelOrderItems[0]['HotelAddress']:''%></p>
+
+            <p class="order-info"><%=CheckInDate[0]%>&nbsp;至&nbsp;<%=CheckOutDate[0]%>&nbsp;&nbsp;<%=HotelOrderItems[0].NightAmount%>晚/<%=HotelOrderItems[0].RoomAmount%>间</p>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+
+<!--保险模板-->
+<script type="text/template" id="VacationInsurance">
+    <li class="order-list-item vacationinsurance <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>"
+        data-oid="<%=OrderID %>" data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(viewType !== "insureorderlist"){%>
+            <span class="order-type type-insure">保险</span>
+            <%}%>
+            <span class="order-status<%= OrderStatusName == '已出保' ? ' order-status-succes' : '' %>"><%= OrderStatusName %></span>
+            <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice %></span>
+        </div>
+        <div class="order-cont" data-url="<%=detail %>">
+            <h2 class="ellips_line2"><%= OrderName %></h2>
+
+            <p class="order-info"><%=EffectDate[0] %>&nbsp;至&nbsp;<%=ExpiredDate[0] %>&nbsp;<%=VacationInsuranceOrderItems[0].InsuredDays
+                %>天/<%=VacationInsuranceOrderItems[0].InsuredCount %>单</p>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+
+<!--酒+景模板-->
+<script type="text/template" id="SceneryHotel">
+    <li class="order-list-item sceneryhotel <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>"
+        data-oid="<%=OrderID %>" data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(isAggregated){%>
+            <span class="order-type attractions-hotels">酒店+景点</span>
+            <%}%>
+            <span class="order-status <%=OrderStatusName === '已成交' ? 'order-status-succes' : '' %>"><%=OrderStatusName?OrderStatusName:"" %></span>
+            <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice%></span>
+        </div>
+        <div class="order-cont" data-url="<%=detail %>">
+            <h2 class="ellips_line2"><%=OrderName?OrderName:"" %></h2>
+
+            <p class="order-info"><%=DepartureDate[0] %>&nbsp;出发</p>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+
+<!--礼品卡模板-->
+<script type="text/template" id="Lipin">
+    <li class="order-list-item lipin <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>"
+        data-oid="<%=OrderID %>" data-onum="<%=orderInfo.OrderNumber %>" data-cnt="<%=orderInfo.Quantity %>"
+        data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(isAggregated){%>
+            <span class="order-type type-lipin">礼品卡</span>
+            <%}%>
+            <span class="order-status"><%=OrderStatusName %></span>
+            <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice %></span>
+        </div>
+        <div class="order-cont" data-url="<%=detail %>">
+            <h2 class="ellips_line2"><%=orderInfo.ProductName %></h2>
+
+            <p class="order-info"><%=orderInfo.ProductTypeName %>&nbsp;-&nbsp;<%=orderInfo.DeliverTypeName %>&nbsp;&nbsp;<%=orderInfo.Quantity
+                ? orderInfo.Quantity + '张' : ''%></p>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+
+<!--门票模板-->
+<script type="text/template" id="Piao">
+    <li class="order-list-item piao <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>"
+        data-oid="<%= OrderID %>" data-mobile="<%=typeof ContactMobile == 'undefined' ? '' : ContactMobile %>"
+        data-actions="<%=actions %>" data-url="<%=ActionURLH5 %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(isAggregated){%>
+            <span class="order-type type-ticket">门票</span>
+            <%}%>
+            <span class="order-status<%= OrderStatusName.indexOf('成交') > -1 ? ' order-status-succes' : '' %>"><%= OrderStatusName %></span>
+            <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice %></span>
+        </div>
+        <div class="order-cont" data-url="<%=detail%>">
+            <h2 class="ellips_line2"><%= typeof ProductName == 'undefined' ? OrderName : ProductName %></h2>
+
+            <p class="order-info"><%=DepartureDate[0]%>使用&nbsp;&nbsp;<%=PiaoOrderItems[0].Quantity %>张</p>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+
+<!--汽车票模板-->
+<script type="text/template" id="QiChe">
+    <li class="order-list-item qiche <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>"
+        data-oid="<%=OrderID%>" data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(isAggregated){%>
+            <span class="order-type type-bus">汽车票</span>
+            <%}%>
+            <span class="order-status<%=OrderStatusName=='已成交'? ' order-status-succes':'' %>"><%=OrderStatusName %></span>
+            <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice %></span>
+        </div>
+
+        <div class="order-cont" data-url="<%=detail %>">
+            <div class="travel-wrap car-wrap">
+                <h2 class="ellips_line2"><%=depQicheInfo.departureDisplayName %>&nbsp;-&nbsp;<%=depQicheInfo.arrivalDisplayName
+                    %></h2>
+                <%if (depQicheInfo.ArriveTime) {%>
+                <p class="order-info">
+                    <span class="date"><%=DepartureDate[0] %></span><span class="hour"><%=DepartureDate[1] %>&nbsp;至&nbsp;<%=(DepartureDate[0]==depQicheInfo.ArriveTime[0])?'':depQicheInfo.ArriveTime[0]+' '%><%=depQicheInfo.ArriveTime[1]%></span>
+                </p>
+                <%} else {%>
+                <p class="order-info">
+                    <span class="date"><%=DepartureDate[0] %></span><span class="hour"><%=DepartureDate[1] %>&nbsp;至&nbsp;</span><span
+                        class="hour">--</span>
+                </p>
+                <%}%>
+
+                <%if (depQicheInfo.FetcherCode){ %><p class="order-tip">取票号: <%= depQicheInfo.FetcherCode %></p><%} %>
+                <%if (depQicheInfo.FetcherPassword){ %><p class="order-tip">取票密码: <%= depQicheInfo.FetcherPassword
+                %></p><%} %>
+                <%if (depQicheInfo.FetcherOrderID){ %><p class="order-tip">取票订单号: <%= depQicheInfo.FetcherOrderID %></p>
+                <%} %>
+            </div>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+
+<!--出租车模板-->
+<script type="text/template" id="Taxi">
+    <li class="order-list-item car <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>"
+        data-oid="<%=OrderID %>" data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(isAggregated){%>
+            <span class="order-type type-car">用车</span>
+            <%}%>
+            <span class="order-status<%=OrderStatusName=='已成交'? ' order-status-succes':'' %>"><%=OrderStatusName%></span>
+        </div>
+        <div class="order-cont" data-url="<%=detail %>">
+            <h2 class="ellips_line2"><%=OrderName %></h2>
+
+            <p class="depart-date"><%=UsageDate ? UsageDate[0] : "" %>使用</p>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+
+<!--高端商户模板-->
+<script type="text/template" id="TopShop">
+    <li class="order-list-item topshop <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>"
+        data-oid="<%= OrderID %>" data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(isAggregated){%>
+            <span class="order-type type-food">高端商户</span>
+            <%}%>
+            <span class="order-status<%= OrderStatusName == '支付成功' ? ' order-status-succes' : '' %>"><%= OrderStatusName %></span>
+            <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice %></span>
+        </div>
+        <div class="order-cont" data-url="<%=detail %>">
+            <h2 class="ellips_line2"><%= orderInfo.ProductName %></h2>
+
+            <p class="order-info"><%=BeginValidTime[0]%>&nbsp;至&nbsp;<%=EndValidTime[0]%>&nbsp;<%=orderInfo.ProductCount%>张</p>
+
+            <p class="order-tip"><%= (OrderStatusName == '支付成功' && orderInfo.VerificationCodeOverview) ?
+                orderInfo.VerificationCodeOverview : ''%></p>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+
+<!--火车票模板-->
+<script type="text/template" id="Train">
+    <li class="order-list-item train <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>"
+        data-share="<%=shareItem %>" data-oid="<%=OrderID%>" data-type="<%=BizType %>" data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(viewType == "trainorderlist"){%>
+            <span class="order-type single-order-type"><%=orderType %></span>
+            <%}else{%>
+            <span class="order-type type-train">火车票</span>
+            <%}%>
+            <span class="order-status <%=OrderStatusName === '已成交' ? 'order-status-succes' : '' %>"><%=OrderStatusName %></span>
+            <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice %></span>
+        </div>
+        <div class="order-cont" data-url="<%=detail %>">
+            <%if(BizType == "Train"){%>
+            <h2 class="ellips_line2"><%=depTrainInfo.DepartureStation %>&nbsp;-&nbsp;<%=depTrainInfo.ArrivalStation
+                %></h2>
+
+            <p class="order-info">
+                <span class="date"><%=DepartureDate[0]%></span><span class="hour"><%=DepartureDate[1]%>&nbsp;至&nbsp;<%=(DepartureDate[0] == ArrivalDate[0]) ? '' : ArrivalDate[0] + ' '%><%=ArrivalDate[1]%></span>
+                <%if (carriageSeat.length > 0) {%>
+                <span class="item seat<%=isTypeReturn ? ' seat-round' : '' %>"><%=depTrainInfo.TrainNumber + ' ' + carriageSeat%></span>
+                <%} else {%>
+                <span class="item"><%=depTrainInfo.TrainNumber %></span>
+                <%}%>
+            </p>
+            <%if (depTrainInfo.TicketWindow) { %>
+            <p class="order-tip">窗口取票号:<%= depTrainInfo.TicketWindow %></p>
+            <%} %>
+            <%}else{%>
+            <h2 class="ellips_line2"><%=OrderName%></h2>
+            <%if (depTrainInfo.Validity) {%>
+            <p class="order-info"><%=depTrainInfo.Validity %></p>
+            <%} else {%>
+            <p class="order-info">
+                <%if (isTypeReturn) {%><span class="start">去</span><%}%>
+                <span class="date"><%=DepartureDate[0]%></span><span class="hour"><%=DepartureDate[1]%>&nbsp;至&nbsp;<%=(DepartureDate[0] == ArrivalDate[0]) ? '' : ArrivalDate[0] + ' '%><%=ArrivalDate[1]%></span>
+                <span class="item"><%=depTrainInfo.TrainNumber + (timeIndexes[1] > 0 ? '等' : '')%></span>
+            </p>
+            <%if (isTypeReturn) {%>
+            <p class="order-info">
+                <span class="end">返</span>
+                <span class="date"><%=BackDepartureDate[0]%></span><span class="hour"><%=BackDepartureDate[1]%>&nbsp;至&nbsp;<%=(BackDepartureDate[0] == BackArrivalDate[0]) ? '' : BackArrivalDate[0] + ' '%><%=BackArrivalDate[1]%></span>
+                <span class="item"><%=arrTrainInfo.TrainNumber + (timeIndexes[3] > timeIndexes[2] ? '等' : '')%></span>
+            </p>
+            <%}%>
+            <%}%>
+            <%}%>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+
+<!--团购模板-->
+<script type="text/template" id="Tuan">
+    <li class="order-list-item tuan <%= OrderStatusName === '已经取消' ? 'order-item-cancel' : '' %>"
+        data-oid="<%=OrderID %>" data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(isAggregated){%>
+            <span class="order-type type-tuan">团购</span>
+            <%}%>
+            <span class="order-status"><%= OrderStatusName %></span>
+            <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice %></span>
+        </div>
+        <div class="order-cont" data-url="<%=detail %>">
+            <h2 class="ellips_line2"><%= TuanOrderItems[0].ProductName ? TuanOrderItems[0].ProductName : "" %></h2>
+
+            <p class="order-info">
+                <%if(RobType&&RobType=='Y'){%>
+                <%=TakeEffectDate[0]?TakeEffectDate[0]:"" %>&nbsp;使用&nbsp;&nbsp;
+                <%}else if(ExpireDate[0].indexOf('2050') < 0){%>
+                有效期至&nbsp;<%=ExpireDate[0]?ExpireDate[0]:"" %>&nbsp;&nbsp;
+                <%}%>
+            </p>
+            <%if(TicketStatusesDesc){%><p class="order-tip"><%=TicketStatusesDesc %></p><%}%>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+
+<!--旅游模板-->
+<script type="text/template" id="Vacation">
+    <li class="order-list-item vacation <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>"
+        data-share='<%=shareItem %>' data-oid='<%=OrderID %>' data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(isAggregated){%>
+            <span class="order-type type-team">旅游</span>
+            <%}%>
+            <span class="order-status <%=OrderStatusName === '已成交' ? 'order-status-succes' : '' %>"><%=OrderStatusName %></span>
+            <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice %></span>
+        </div>
+        <div class="order-cont" data-url="<%-detail %>">
+            <h2 class="ellips_line2"><%=OrderName %></h2>
+
+            <p class="order-info"><%=DepartureDate[0] %>出发</p>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+
+<!--签证模板-->
+<script type="text/template" id="Visa">
+    <li class="order-list-item visa <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>" data-oid="<%=OrderID%>"
+        data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(isAggregated){%>
+            <span class="order-type type-visa">签证</span>
+            <%}%>
+            <span class="order-status<%=OrderStatusCode=='已成交' ? ' order-status-succes' : '' %>"><%=OrderStatusName %></span>
+            <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice %></span>
+        </div>
+        <div class="order-cont" data-url="<%=detail %>">
+            <h2 class="ellips_line2"><%=OrderName %></h2>
+
+            <p class="depart-date"><%=DepartureDate[0] %>&nbsp;出发</p>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+<!--机场巴士订单模板-->
+<script type="text/template" id="AirportBus">
+    <li class="order-list-item airportbus <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>"
+        data-oid="<%=OrderID%>" data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(isAggregated){%>
+            <span class="order-type type-airportbus">机场巴士</span>
+            <%}%>
+            <span class="order-status<%=OrderStatusName ==='已出票' ? ' order-status-succes' : '' %>"><%=OrderStatusName %></span>
+            <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice %></span>
+        </div>
+        <div class="order-cont" data-url="<%=detail %>">
+            <h2 class="ellips_line2"><%=OrderName %></h2>
+
+            <p class="order-info">
+                <span class="date"><%=depAirbusInfo.UsageDate %></span>
+                <span class="item"><%=depAirbusInfo.BusNo%></span>
+            </p>
+            <% if (TicketNumber) {%>
+            <p class="order-tip">取票号: <%=TicketNumber%></p>
+            <%}%>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+<!--HHTravel订单模板-->
+<script type="text/template" id="HHTravel">
+    <li class="order-list-item hhtravel <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>"
+        data-oid="<%=OrderID%>" data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(isAggregated){%>
+            <span class="order-type type-hhtravel">HHTravel</span>
+            <%}%>
+            <span class="order-status<%=OrderStatusName ==='已成交' ? ' order-status-succes' : '' %>"><%=OrderStatusName %></span>
+            <span class="order-price"><dfn>&yen;</dfn><%=OrderTotalPrice %></span>
+        </div>
+        <div class="order-cont" data-url="<%=detail %>">
+            <h2 class="ellips_line2"><%=OrderName %></h2>
+
+            <p class="order-info"><%=UsageDate[0]%>&nbsp;&nbsp;出发</p>
+        </div>
+    </li>
+</script>
+
+<!--礼品卡商城订单模板-->
+<script type="text/template" id="Mall">
+    <li class="order-list-item mall <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>" data-oid="<%=OrderID%>"
+        data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(isAggregated){%>
+            <span class="order-type type-gcardmall">礼遇商城</span>
+            <%}%>
+            <span class="order-status<%=OrderStatusName ==='已成交' ? ' order-status-succes' : '' %>"><%=OrderStatusName %></span>
+            <span class="order-price">
+                <dfn><%=(Currency === 'RMB' || Currency === 'CNY') ? '&yen;' : Currency%></dfn><%=OrderTotalPrice%><span
+                    class="order-integral">+<em><%=Point%></em>积分</span>
+            </span>
+        </div>
+        <div class="order-cont order-cont-img" data-url="<%=detail %>">
+            <div class="order-img">
+                <span><img src="<%=ImageURL%>" alt=""></span>
+            </div>
+            <div class="order-cont-title">
+                <h2><%=ProductName %></h2>
+            </div>
+            <p class="order-tip"><%=ProductDesc%> 数量:<%=Quantity%></p>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+<!--全球购订单模板-->
+<script type="text/template" id="GlobalBuy">
+    <li class="order-list-item globalbuy <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>"
+        data-oid="<%=OrderID%>" data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(isAggregated){%>
+            <span class="order-type type-global">全球购</span>
+            <%}%>
+            <span class="order-status<%=OrderStatusName ==='待支付' ? ' order-status-succes' : '' %>"><%=OrderStatusName %></span>
+            <span class="order-price"><dfn><%=(Currency === 'RMB' || Currency === 'CNY') ? '&yen;' : Currency%></dfn><%=OrderTotalPrice%></span>
+        </div>
+        <div class="order-cont order-cont-img order-cont-img-notip" data-url="<%=detail %>">
+            <h3><%=SiteName%>-<%=VendorName%></h3><span class="piece">共<%=total%>件</span>
+            <%if(isMultiple){%>
+            <div class="order-img scroll-img-area">
+                <div class="scroll-img-list">
+                    <%for(var i = 0, len = Quantity > 3 ? 3 : Quantity; i < len; i++){%>
+                    <span><img src="<%=items[i].ImageUrl%>" alt=""></span>
+                    <%}%>
+                </div>
+            </div>
+            <%}else{%>
+            <div class="order-img">
+                <span><img src="<%=items[0].ImageUrl%>" alt=""></span>
+            </div>
+            <div class="order-cont-title">
+                <h2><%=items[0].ProductName %></h2>
+            </div>
+            <%}%>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+<!--存款证明订单模板-->
+<script type="text/template" id="Deposit">
+    <li class="order-list-item deposit <%= OrderStatusName === '已取消' ? 'order-item-cancel' : '' %>"
+        data-oid="<%=OrderID%>" data-actions="<%=actions %>">
+        <div class="order-hd<%=isAggregated === false ? ' order-hd-single' : ''%>">
+            <%if(isAggregated){%>
+            <span class="order-type type-visa">存款证明</span>
+            <%}%>
+            <span class="order-status<%=OrderStatusCode=='已成交' ? ' order-status-succes' : '' %>"><%=OrderStatusName %></span>
+            <span class="order-price"><dfn>&yen;</dfn><%=DepositOrderItems[0].DepositedAmount %></span>
+        </div>
+        <div class="order-cont" data-url="<%=detail %>">
+            <h2 class="ellips_line2"><%=OrderName %></h2>
+
+            <p class="order-info"><%=DepositTimeFrom[0]%>至<%=DepositTimeTo[0]%> 存款 ￥<%=OrderTotalPrice%></p>
+        </div>
+        <%=btnhtml %>
+    </li>
+</script>
+
+
+<!--订单搜索模板-->
+<script type="text/template" id="searchTpl">
+    <section>
+        <div style="height:44px;">
+            <ul class="tab-model" style="position:fixed;left:0;z-index:999">
+                <li class="tab-current">按类型/状态</li>
+                <li>按订单号</li>
+            </ul>
+        </div>
+        <div class="search">
+            <% if (types.length > 0) { %>
+            <h4 class="search-title">类型</h4>
+            <ul class="search-list type">
+                <% for (var i = 0, len = types.length; i < len; i++) { %>
+                <li
+                <%= filter.type == types[i].code ? ' class="current" ' : ' ' %> data-code="<%= types[i].code %>"><%=
+                types[i].name %></li>
+                <% } %>
+            </ul>
+            <% } %>
+            <% if (statuses.length > 0) { %>
+            <h4 class="search-title">状态</h4>
+            <ul class="search-list status">
+                <% for (var i = 0, len = statuses.length; i < len; i++) { %>
+                <li
+                <%= filter.status == statuses[i].code ? ' class="current" ' : ' ' %> data-code="<%= statuses[i].code
+                %>"><%= statuses[i].name %></li>
+                <% } %>
+            </ul>
+            <% } %>
+            <div class="btn-box">
+                <button class="g_btn_s type">确定</button>
+            </div>
+        </div>
+        <div class="search" style="display:none;">
+            <ul class="form-list" style="margin-top:20px">
+                <li>
+                    <div>
+                        <input type="tel" id="order_field" class="txt_order" maxlength="12" placeholder="请输入数字"/>
+                    </div>
+                </li>
+            </ul>
+            <div class="btn-box">
+                <button class="g_btn_s order g_btns_disable">查询</button>
+            </div>
+        </div>
+    </section>
+</script>

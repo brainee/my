@@ -1,0 +1,1 @@
+define(["commonlist"],function(e){return e.getInstance({pageid:"231077",hpageid:"231077",bizType:"AirportBus",viewType:"airportbusorderlist",title:"机场巴士订单"})});

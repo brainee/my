@@ -1,0 +1,433 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{660C3F50-74AE-4DB2-A01C-AD7256FFED89}</ProjectGuid>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>myctrip</RootNamespace>
+    <AssemblyName>myctrip</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Arch.CFX, Version=1.7.2.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Common\Lib\Framework\Release\Arch.CFX.dll</HintPath>
+    </Reference>
+    <Reference Include="Framework.Logging.V2.API, Version=3.0.0.22, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Common\Lib\Framework\Release\Framework.Logging.V2.API.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages" />
+    <Reference Include="System.Web.Helpers" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\accountsController.cs" />
+    <Compile Include="Controllers\indexController.cs" />
+    <Compile Include="Controllers\commonController.cs" />
+    <Compile Include="Controllers\moreController.cs" />
+    <Compile Include="Controllers\ordersController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="MyViewEngine.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ConfigProfile.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="dest\webresource\build.txt" />
+    <Content Include="dest\webresource\config.js" />
+    <Content Include="dest\webresource\res\style\more.css" />
+    <Content Include="dest\webresource\res\style\myctrip-mobile.css" />
+    <Content Include="dest\webresource\res\style\myctrip-pad.css" />
+    <Content Include="dest\webresource\views\accounts\login.js" />
+    <Content Include="dest\webresource\views\accounts\unlogincheck.js" />
+    <Content Include="dest\webresource\views\common\about.js" />
+    <Content Include="dest\webresource\views\common\agreement.js" />
+    <Content Include="dest\webresource\views\common\feedback.js" />
+    <Content Include="dest\webresource\views\common\noticedetail.js" />
+    <Content Include="dest\webresource\views\common\noticelist.js" />
+    <Content Include="dest\webresource\views\common\setting.js" />
+    <Content Include="dest\webresource\views\index.js" />
+    <Content Include="dest\webresource\views\orders\airportbusorderlist.js" />
+    <Content Include="dest\webresource\views\orders\allorders.js" />
+    <Content Include="dest\webresource\views\orders\busorderlist.js" />
+    <Content Include="dest\webresource\views\orders\cards\template.html" />
+    <Content Include="dest\webresource\views\orders\carorderlist.js" />
+    <Content Include="dest\webresource\views\orders\cruiseorderlist.js" />
+    <Content Include="dest\webresource\views\orders\flightorderlist.js" />
+    <Content Include="dest\webresource\views\orders\globalbuyorderlist.js" />
+    <Content Include="dest\webresource\views\orders\golforderlist.js" />
+    <Content Include="dest\webresource\views\orders\hhtravelorderlist.js" />
+    <Content Include="dest\webresource\views\orders\hotelorderlist.js" />
+    <Content Include="dest\webresource\views\orders\insureorderlist.js" />
+    <Content Include="dest\webresource\views\orders\localeventorderlist.js" />
+    <Content Include="dest\webresource\views\orders\mallorderlist.js" />
+    <Content Include="dest\webresource\views\orders\ordertypelist.js" />
+    <Content Include="dest\webresource\views\orders\sceneryhotelorderlist.js" />
+    <Content Include="dest\webresource\views\orders\search.js" />
+    <Content Include="dest\webresource\views\orders\searchresult.js" />
+    <Content Include="dest\webresource\views\orders\selftravelorderlist.js" />
+    <Content Include="dest\webresource\views\orders\taxiorderlist.js" />
+    <Content Include="dest\webresource\views\orders\ticketsorderlist.js" />
+    <Content Include="dest\webresource\views\orders\topshoporderlist.js" />
+    <Content Include="dest\webresource\views\orders\trainorderlist.js" />
+    <Content Include="dest\webresource\views\orders\travelticketorderlist.js" />
+    <Content Include="dest\webresource\views\orders\tuanorderlist.js" />
+    <Content Include="dest\webresource\views\orders\tuantravelorderlist.js" />
+    <Content Include="dest\webresource\views\orders\uncommentorderlist.js" />
+    <Content Include="dest\webresource\views\orders\unpaidorderlist.js" />
+    <Content Include="dest\webresource\views\orders\unuseorderlist.js" />
+    <Content Include="dest\webresource\views\orders\visaorderlist.js" />
+    <Content Include="dest\webresource\views\pad_index.js" />
+    <Content Include="Global.asax" />
+    <Content Include="gruntCfg.js" />
+    <Content Include="index.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="webresource\common\myctrip.common.js" />
+    <Content Include="webresource\components\h5\ordertypes.js" />
+    <Content Include="webresource\components\online\ordertypes.js" />
+    <Content Include="webresource\components\online\pagination.js" />
+    <Content Include="webresource\config.js" />
+    <Content Include="webresource\models\myctripmodel.js" />
+    <Content Include="webresource\models\myctripstore.js" />
+    <Content Include="webresource\res\style\myctrip-mobile.css" />
+    <Content Include="webresource\res\style\myctrip-pad.css" />
+    <Content Include="webresource\res\style\myctrip-pc-cui.css" />
+    <Content Include="webresource\res\style\myctrip-pc.css" />
+    <Content Include="webresource\views\accounts\login.js" />
+    <Content Include="webresource\views\accounts\unlogincheck.js" />
+    <Content Include="webresource\common\index.common.js" />
+    <Content Include="webresource\views\common\about.js" />
+    <Content Include="webresource\views\common\agreement.js" />
+    <Content Include="webresource\views\common\feedback.js" />
+    <Content Include="webresource\views\common\noticedetail.js" />
+    <Content Include="webresource\views\common\noticelist.js" />
+    <Content Include="webresource\views\common\setting.js" />
+    <Content Include="webresource\views\index.js" />
+    <Content Include="webresource\views\more\index.js" />
+    <Content Include="webresource\views\orders\airportbusorderlist.js" />
+    <Content Include="webresource\views\orders\allorders.js" />
+    <Content Include="webresource\views\orders\cards\depositCard.js" />
+    <Content Include="webresource\views\orders\cards\dnrcard.js" />
+    <Content Include="webresource\views\orders\depositorderlist.js" />
+    <Content Include="webresource\views\orders\dnrorderlist.js" />
+    <Content Include="webresource\views\orders\sceneryhotelorderlist.js" />
+    <Content Include="webresource\views\orders\busorderlist.js" />
+    <Content Include="webresource\views\orders\cards\activitycard.js" />
+    <Content Include="webresource\views\orders\cards\airbuscard.js" />
+    <Content Include="webresource\views\orders\cards\basecard.js" />
+    <Content Include="webresource\views\orders\cards\carcard.js" />
+    <Content Include="webresource\views\orders\cards\cardloader.js" />
+    <Content Include="webresource\views\orders\cards\cruisecard.js" />
+    <Content Include="webresource\views\orders\cards\diycard.js" />
+    <Content Include="webresource\views\orders\cards\flightcard.js" />
+    <Content Include="webresource\views\orders\cards\globalbuycard.js" />
+    <Content Include="webresource\views\orders\cards\golfcard.js" />
+    <Content Include="webresource\views\orders\cards\hhtravelcard.js" />
+    <Content Include="webresource\views\orders\cards\hotelcard.js" />
+    <Content Include="webresource\views\orders\cards\insurecard.js" />
+    <Content Include="webresource\views\orders\cards\lipincard.js" />
+    <Content Include="webresource\views\orders\cards\mallcard.js" />
+    <Content Include="webresource\views\orders\cards\piaocard.js" />
+    <Content Include="webresource\views\orders\cards\qichecard.js" />
+    <Content Include="webresource\views\orders\cards\sceneryhotelcard.js" />
+    <Content Include="webresource\views\orders\cards\taxicard.js" />
+    <Content Include="webresource\views\orders\cards\template.html" />
+    <Content Include="webresource\views\orders\cards\topshopcard.js" />
+    <Content Include="webresource\views\orders\cards\traincard.js" />
+    <Content Include="webresource\views\orders\cards\tuancard.js" />
+    <Content Include="webresource\views\orders\cards\vacationcard.js" />
+    <Content Include="webresource\views\orders\cards\visacard.js" />
+    <Content Include="webresource\views\orders\carorderlist.js" />
+    <Content Include="webresource\views\orders\commonlist.js" />
+    <Content Include="webresource\views\orders\cruiseorderlist.js" />
+    <Content Include="webresource\views\orders\flightorderlist.js" />
+    <Content Include="webresource\views\orders\globalbuyorderlist.js" />
+    <Content Include="webresource\views\orders\golforderlist.js" />
+    <Content Include="webresource\views\orders\hhtravelorderlist.js" />
+    <Content Include="webresource\views\orders\hotelorderlist.js" />
+    <Content Include="webresource\views\orders\insureorderlist.js" />
+    <Content Include="webresource\views\orders\localeventorderlist.js" />
+    <Content Include="webresource\views\orders\mallorderlist.js" />
+    <Content Include="webresource\views\orders\ordertypelist.js" />
+    <Content Include="webresource\views\orders\search.js" />
+    <Content Include="webresource\views\orders\searchresult.js" />
+    <Content Include="webresource\views\orders\selftravelorderlist.js" />
+    <Content Include="webresource\views\orders\taxiorderlist.js" />
+    <Content Include="webresource\views\orders\ticketsorderlist.js" />
+    <Content Include="webresource\views\orders\topshoporderlist.js" />
+    <Content Include="webresource\views\orders\trainorderlist.js" />
+    <Content Include="webresource\views\orders\travelticketorderlist.js" />
+    <Content Include="webresource\views\orders\tuanorderlist.js" />
+    <Content Include="webresource\views\orders\tuantravelorderlist.js" />
+    <Content Include="webresource\views\orders\uncommentorderlist.js" />
+    <Content Include="webresource\views\orders\unpaidorderlist.js" />
+    <Content Include="webresource\views\orders\unuseorderlist.js" />
+    <Content Include="webresource\views\orders\visaorderlist.js" />
+    <Content Include="webresource\views\pad_index.js" />
+    <Content Include="webresource\views\pc_index.js" />
+    <Content Include="webresource\views\indexTpl_online.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\orders\hotelorderlist.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\index\index.cshtml" />
+    <Content Include="Views\orders\allorders.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\common\index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\common\about.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\common\feedback.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\common\agreement.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\common\setting.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\orders\busorderlist.cshtml" />
+    <Content Include="Views\orders\carorderlist.cshtml" />
+    <Content Include="Views\orders\localeventorderlist.cshtml" />
+    <Content Include="Views\orders\taxiorderlist.cshtml" />
+    <Content Include="Views\orders\ticketsorderlist.cshtml" />
+    <Content Include="Views\orders\trainorderlist.cshtml" />
+    <Content Include="Views\orders\tuanorderlist.cshtml" />
+    <Content Include="Views\orders\tuantravelorderlist.cshtml" />
+    <Content Include="Views\orders\visaorderlist.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\orders\uncommentorderlist.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\orders\unpaidorderlist.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\orders\unuseorderlist.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\more\index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dest\views\common\about.cshtml" />
+    <Content Include="dest\views\common\agreement.cshtml" />
+    <Content Include="dest\views\common\feedback.cshtml" />
+    <Content Include="dest\views\common\noticelist.cshtml" />
+    <Content Include="dest\views\common\setting.cshtml" />
+    <Content Include="dest\views\index\index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="dest\views\orders\airportbusorderlist.cshtml" />
+    <Content Include="dest\views\orders\allorders.cshtml" />
+    <Content Include="dest\views\orders\attr-hotelorderlist.cshtml" />
+    <Content Include="dest\views\orders\busorderlist.cshtml" />
+    <Content Include="dest\views\orders\carorderlist.cshtml" />
+    <Content Include="dest\views\orders\cruiseorderlist.cshtml" />
+    <Content Include="dest\views\orders\flightorderlist.cshtml" />
+    <Content Include="dest\views\orders\globalbuyorderlist.cshtml" />
+    <Content Include="dest\views\orders\golforderlist.cshtml" />
+    <Content Include="dest\views\orders\hhtravelorderlist.cshtml" />
+    <Content Include="dest\views\orders\hotelorderlist.cshtml" />
+    <Content Include="dest\views\orders\index.cshtml" />
+    <Content Include="dest\views\orders\insureorderlist.cshtml" />
+    <Content Include="dest\views\orders\localeventorderlist.cshtml" />
+    <Content Include="dest\views\orders\mallorderlist.cshtml" />
+    <Content Include="dest\views\orders\ordertypelist.cshtml" />
+    <Content Include="dest\views\orders\selftravelorderlist.cshtml" />
+    <Content Include="dest\views\orders\taxiorderlist.cshtml" />
+    <Content Include="dest\views\orders\ticketsorderlist.cshtml" />
+    <Content Include="dest\views\orders\trainorderlist.cshtml" />
+    <Content Include="dest\views\orders\tuanorderlist.cshtml" />
+    <Content Include="dest\views\orders\tuantravelorderlist.cshtml" />
+    <Content Include="dest\views\orders\uncommentorderlist.cshtml" />
+    <Content Include="dest\views\orders\unloginorderlist.cshtml" />
+    <Content Include="dest\views\orders\unpaidorderlist.cshtml" />
+    <Content Include="dest\views\orders\unuseorderlist.cshtml" />
+    <Content Include="dest\views\orders\visaorderlist.cshtml" />
+    <Content Include="dest\views\Shared\Error.cshtml" />
+    <Content Include="dest\views\Shared\_Layout.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="dest\views\Web.config" />
+    <Content Include="dest\views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\orders\airportbusorderlist.cshtml" />
+    <Content Include="Views\orders\cruiseorderlist.cshtml" />
+    <Content Include="Views\orders\flightorderlist.cshtml" />
+    <Content Include="Views\orders\globalbuyorderlist.cshtml" />
+    <Content Include="Views\orders\golforderlist.cshtml" />
+    <Content Include="Views\orders\hhtravelorderlist.cshtml" />
+    <Content Include="Views\orders\insureorderlist.cshtml" />
+    <Content Include="Views\orders\mallorderlist.cshtml" />
+    <Content Include="Views\orders\ordertypelist.cshtml" />
+    <Content Include="Views\orders\selftravelorderlist.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\common\noticedetail.cshtml" />
+    <Content Include="Views\common\noticelist.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config.tpl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\AppSetting.config.tpl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\AppSetting.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\orders\search.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\orders\topshoporderlist.cshtml" />
+    <Content Include="Views\orders\travelticketorderlist.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\orders\sceneryhotelorderlist.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\orders\searchresult.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dest\views\common\noticedetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dest\views\orders\sceneryhotelorderlist.cshtml" />
+    <Content Include="dest\views\orders\search.cshtml" />
+    <Content Include="dest\views\orders\searchresult.cshtml" />
+    <Content Include="dest\views\orders\topshoporderlist.cshtml" />
+    <Content Include="dest\views\orders\travelticketorderlist.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dest\views\more\index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\accounts\login.cshtml" />
+    <Content Include="Views\accounts\unlogincheck.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\orders\depositorderlist.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dest\views\accounts\login.cshtml" />
+    <Content Include="dest\views\accounts\unlogincheck.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\orders\dnrorderlist.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\orders\vacationunionorderlist.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>33121</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>C:\DevTools\ConfigGen\ConfigGen.exe -gd "$(ProjectDir)"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
